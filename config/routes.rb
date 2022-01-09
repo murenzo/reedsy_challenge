@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       namespace :products do
         resources :get_products, only: :index, path: '/'
         resources :update_product_price, only: :update, path: '/'
+        post "/codes/price", to: "products_codes#price_check"
       end
     end
   end

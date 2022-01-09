@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'byebug'
 
 describe Api::V1::Products::UpdateProductPriceController, type: :request do
   let(:product) do
