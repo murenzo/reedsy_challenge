@@ -20,42 +20,72 @@ describe Api::V1::Products::ProductsCodesController, type: :request do
     end
   end
 
-  context "Items: [MUG, TSHIRT, MUG]" do
-    let(:params) { { 'items': ['MUG', 'TSHIRT','MUG'] } }
+  context 'discount price' do
+    context "Items: [MUG, TSHIRT, MUG]" do
+      let(:params) { { 'items': ['MUG', 'TSHIRT','MUG'] } }
 
-    it 'returns the total price of products' do
-      post "/api/v1/products/codes/price", params: {products_code: params}
+      it 'returns the total price of products' do
+        post "/api/v1/products/codes/price", params: {products_code: params}
 
-      expect(response).to have_http_status(:ok)
-      
-      resp = JSON.parse(response.body)
-      expect(resp['Total']).to eq(27)
+        expect(response).to have_http_status(:ok)
+
+        resp = JSON.parse(response.body)
+        expect(resp['Total']).to eq(21)
+      end
+    end
+
+    context "Items: [MUG, TSHIRT, TSHIRT, TSHIRT]" do
+      let(:params) { { 'items': ['MUG', 'TSHIRT','TSHIRT', 'TSHIRT'] } }
+
+      it 'returns the total price of products' do
+        post "/api/v1/products/codes/price", params: {products_code: params}
+
+        expect(response).to have_http_status(:ok)
+
+        resp = JSON.parse(response.body)
+        expect(resp['Total']).to eq(37.5)
+      end
+    end
+
+    context "Items: [MUG, TSHIRT, TSHIRT, TSHIRT, TSHIRT, MUG, HOODIE]" do
+      let(:params) { { 'items': ['MUG', 'TSHIRT', 'TSHIRT', 'TSHIRT', 'TSHIRT','MUG', 'HOODIE'] } }
+
+      it 'returns the total price of products' do
+        post "/api/v1/products/codes/price", params: {products_code: params}
+
+        expect(response).to have_http_status(:ok)
+
+        resp = JSON.parse(response.body)
+        expect(resp['Total']).to eq(68.0)
+      end
     end
   end
 
-  context "Items: [MUG, TSHIRT, MUG, MUG]" do
-    let(:params) { { 'items': ['MUG', 'TSHIRT','MUG', 'MUG'] } }
+  context 'non discount price' do
+    context "Items: [MUG, TSHIRT, TSHIRT]" do
+      let(:params) { { 'items': ['MUG', 'TSHIRT','TSHIRT'] } }
 
-    it 'returns the total price of products' do
-      post "/api/v1/products/codes/price", params: {products_code: params}
+      it 'returns the total price of products' do
+        post "/api/v1/products/codes/price", params: {products_code: params}
 
-      expect(response).to have_http_status(:ok)
-      
-      resp = JSON.parse(response.body)
-      expect(resp['Total']).to eq(33)
+        expect(response).to have_http_status(:ok)
+
+        resp = JSON.parse(response.body)
+        expect(resp['Total']).to eq(36)
+      end
     end
-  end
 
-  context "Items: [MUG, TSHIRT, TSHIRT, TSHIRT, TSHIRT, MUG, HOODIE]" do
-    let(:params) { { 'items': ['MUG', 'TSHIRT', 'TSHIRT', 'TSHIRT', 'TSHIRT','MUG', 'HOODIE'] } }
+    context "Items: [MUG, TSHIRT]" do
+      let(:params) { { 'items': ['MUG', 'TSHIRT'] } }
 
-    it 'returns the total price of products' do
-      post "/api/v1/products/codes/price", params: {products_code: params}
+      it 'returns the total price of products' do
+        post "/api/v1/products/codes/price", params: {products_code: params}
 
-      expect(response).to have_http_status(:ok)
-      
-      resp = JSON.parse(response.body)
-      expect(resp['Total']).to eq(92)
+        expect(response).to have_http_status(:ok)
+
+        resp = JSON.parse(response.body)
+        expect(resp['Total']).to eq(21)
+      end
     end
   end
 end

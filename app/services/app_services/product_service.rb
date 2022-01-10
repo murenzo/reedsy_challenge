@@ -6,13 +6,21 @@ module AppServices
     end
 
     def get_total_price
-      fetch_items_prices&.sum
+      mug_total_price + tshirt_total_price + hoodie_total_price
     end
 
-    def fetch_items_prices
-      @products_codes.map(&:upcase).map do |product_code|
-        Product.find_by_code(product_code)&.price
-      end
+    private
+
+    def mug_total_price
+      MugDiscountService.new(@products_codes).calculate_price
+    end
+
+    def tshirt_total_price
+      TshirtDiscountService.new(@products_codes).calculate_price
+    end
+
+    def hoodie_total_price
+      HoodieDiscountService.new(@products_codes).calculate_price
     end
   end
 end
