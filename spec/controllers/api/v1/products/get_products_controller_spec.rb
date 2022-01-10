@@ -3,8 +3,8 @@ require 'rails_helper'
 describe Api::V1::Products::GetProductsController, type: :request do
   context "when products is not empty" do
     before do
-      FactoryBot.create(:product, code: 'MUG', name: 'Reedsy Mug', price: 6.00)
-      FactoryBot.create(:product, code: 'TSHIRT', name: 'Reedsy T-shirt', price: 15.00)
+      FactoryBot.create(:product, code: 'MUG', name: 'Reedsy Mug', price: 6)
+      FactoryBot.create(:product, code: 'TSHIRT', name: 'Reedsy T-shirt', price: 15)
     end
 
     it 'returns 200 status code with all products' do

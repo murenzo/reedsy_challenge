@@ -7,17 +7,17 @@ DEFAULT_PRODUCTS = [
   {
     code: 'MUG',
     name: 'Reedsy Mug',
-    price: 6.00
+    price: 6
   },
   {
     code: 'TSHIRT',
     name: 'Reedsy T-shirt',
-    price: 15.00
+    price: 15
   },
   {
     code: 'HOODIE',
     name: 'Reedsy Hoodie',
-    price: 20.00
+    price: 20
   }
 ]
 

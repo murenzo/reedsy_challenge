@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Api::V1::Products::UpdateProductPriceController, type: :request do
   let(:product) do
-    FactoryBot.create(:product, code: 'MUG', name: 'Reedsy Mug', price: 6.00)
+    FactoryBot.create(:product, code: 'MUG', name: 'Reedsy Mug', price: 6)
   end
   let(:params) { { 'price': 23 } }
 
@@ -28,7 +28,7 @@ describe Api::V1::Products::UpdateProductPriceController, type: :request do
         
         resp = JSON.parse(response.body)
 
-        expect(resp['price']).to eq("23.0")
+        expect(resp['price']).to eq(23)
       end
     end
 
@@ -46,7 +46,7 @@ describe Api::V1::Products::UpdateProductPriceController, type: :request do
     end
 
     context 'when price params is invalid' do
-      let(:params) { { 'price': 100.0 } }
+      let(:params) { { 'price': 'abc' } }
 
       it 'returns a 400 status code with error messages' do
         put "/api/v1/products/#{product.id}", params: {update_product_price: params}
@@ -54,7 +54,7 @@ describe Api::V1::Products::UpdateProductPriceController, type: :request do
         expect(response).to have_http_status(:bad_request)
         
         resp = JSON.parse(response.body)
-        expect(resp['message']['price']).to match_array(["must be less than 100.0", 'is invalid'])
+        expect(resp['message']['price']).to match_array(['is not a number'])
       end
     end
   end
