@@ -1,26 +1,26 @@
 module AppServices
-  class ProductService
+  class ProductPriceService < ApplicationService
     
     def initialize(products_codes)
       @products_codes = products_codes
     end
 
-    def get_total_price
+    def call
       mug_total_price + tshirt_total_price + hoodie_total_price
     end
 
     private
 
     def mug_total_price
-      MugDiscountService.new(@products_codes).calculate_price
+      MugPriceService.call(@products_codes)
     end
 
     def tshirt_total_price
-      TshirtDiscountService.new(@products_codes).calculate_price
+      TshirtPriceService.call(@products_codes)
     end
 
     def hoodie_total_price
-      HoodieDiscountService.new(@products_codes).calculate_price
+      HoodiePriceService.call(@products_codes)
     end
   end
 end

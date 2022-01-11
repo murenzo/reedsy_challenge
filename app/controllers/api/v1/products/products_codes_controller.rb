@@ -5,9 +5,9 @@ module Api
     module Products
       class ProductsCodesController < ApplicationController
         def price_check
-          product_service = ::AppServices::ProductService.new(product_params["items"])
+          total_price = ::AppServices::ProductPriceService.call(product_params["items"])
 
-          json_render Items: product_params["items"], Total: product_service.get_total_price
+          json_render Items: product_params["items"], Total: total_price
         end
 
         private

@@ -2,8 +2,8 @@
 
 require 'rails_helper'
 
-describe  AppServices::MugDiscountService do
-  let!(:subject) { AppServices::MugDiscountService }
+describe  AppServices::MugPriceService do
+  let!(:subject) { AppServices::MugPriceService }
 
   before do
     FactoryBot.create(:product, code: 'MUG', name: 'Reedssy Mug', price: 6)
@@ -14,7 +14,7 @@ describe  AppServices::MugDiscountService do
   context 'when apply_discount is set to false' do
     it 'returns the total value for all product items sent without discount' do
       product_codes = ['MUG', 'MUG']
-      expect(subject.new(product_codes, false).calculate_price).to eq(12)
+      expect(subject.call(product_codes, false)).to eq(12)
     end
   end
 
@@ -22,21 +22,21 @@ describe  AppServices::MugDiscountService do
     context 'and got no product item passed in the Array' do
       it 'returns the zero as the value' do
         product_codes = []
-        expect(subject.new(product_codes, true).calculate_price).to eq(0)
+        expect(subject.call(product_codes, true)).to eq(0)
       end
     end
 
     context 'and got product items that does not meet the discount requirement' do
       it 'returns the total value without discount applied' do
         product_codes = ['MUG']
-        expect(subject.new(product_codes, true).calculate_price).to eq(6)
+        expect(subject.call(product_codes, true)).to eq(6)
       end
     end
 
     context 'and got product items that does meet the minimum discount requirement' do
       it 'returns the total value minus the discounted amount' do
         product_codes = ['MUG', 'MUG']
-        expect(subject.new(product_codes, true).calculate_price).to eq(6)
+        expect(subject.call(product_codes, true)).to eq(6)
       end
     end
   end
