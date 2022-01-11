@@ -17,10 +17,10 @@ Result-oriented software engineer with expertise in building secure and robust e
 
 3 Run `rspec` command to run all test or simply specify the path to the test file of interest `rspec spec/services/app_services/hoodie_discount_service_spec.rb`
 
-### Discount Services
+### Product Price Services
 
-* The discount services are been enabled by default when we instantiate a new discount service. E.g. `MugDiscountService.new(['MUG', 'TSHIRT', 'HOODIE'])`
-* If we want to disable the discount from been applied to the the total price, we will pass a `false` value as second parameter when instantiating a discount service. E.g. `MugDiscountService.new(['MUG', 'TSHIRT', 'HOODIE'], false)`
+* The discount option for the respective product price services are been enabled by default when we call a product price service. E.g. `MugPriceService.call(['MUG', 'TSHIRT', 'HOODIE'])`
+* If we want to disable the discount from been applied to the the original total price, we will need to pass a `false` value as second parameter when calling a product price service. E.g. `MugPriceService.call(['MUG', 'TSHIRT', 'HOODIE'], false)`
 
 ### Download Postman Exported JSON file.
 
